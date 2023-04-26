@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.*;
         allowedHeaders = {"Authorization", "Origin"},
         methods = {RequestMethod.GET, RequestMethod.POST}
 )
+
+/**
+ACA ARRIBA QUIZA NO SEA NECESARIO TODO ESO... EN MI CASO LO TENGGO SOLO ASI @CrossOrigin(origins = "https://argentinaprog22.web.app")
+*/
 public class ConfigurationController {
 
     @Autowired
