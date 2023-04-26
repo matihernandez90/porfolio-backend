@@ -8,27 +8,35 @@ import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("api/config")
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(
+        origins = "*",
+        maxAge = 3600,
+        exposedHeaders = {"Access-Control-Allow-Origin", "Access-Control-Allow-Credentials", "Authorization"},
+        allowedHeaders = {"Authorization", "Origin"},
+        methods = {RequestMethod.GET, RequestMethod.POST}
+)
 public class ConfigurationController {
 
     @Autowired
     private ConfigurationService configSvc;
 
     @PostMapping("/")
-    public ResponseEntity<?> saveConfiguration(@RequestBody Configuration data){
+    public ResponseEntity<?> saveConfiguration(@RequestBody Configuration data) {
         return ResponseEntity.ok(configSvc.save(data));
     }
-    @GetMapping("/")
-    public ResponseEntity<?> getAllConfiguration(){
+
+    @GetMapping("/public")
+    public ResponseEntity<?> getAllConfiguration() {
         return ResponseEntity.ok(configSvc.getAll());
     }
+
     @GetMapping("/{name}")
-    public ResponseEntity<?> getConfiguration(@PathVariable("name") String name){
+    public ResponseEntity<?> getConfiguration(@PathVariable("name") String name) {
         return ResponseEntity.ok(configSvc.get(name));
     }
 
     @DeleteMapping("/{name}")
-    public ResponseEntity<?> deleteConfiguration(@PathVariable("name") String name){
+    public ResponseEntity<?> deleteConfiguration(@PathVariable("name") String name) {
         configSvc.remove(name);
         return ResponseEntity.ok(null);
     }

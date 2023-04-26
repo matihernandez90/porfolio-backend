@@ -59,6 +59,11 @@ public class AuthController {
         return ResponseEntity.ok(new JwtResponse(token));
     }
 
+    @GetMapping("/verify")
+    public ResponseEntity<?> verifyToken(){
+        return ResponseEntity.noContent().build();
+    }
+
     private void authenticate(String username, String password) throws Exception {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
